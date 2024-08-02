@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\Image.css" />
     <_ContentIncludedByDefault Remove="wwwroot\Services.js" />
   </ItemGroup>
 

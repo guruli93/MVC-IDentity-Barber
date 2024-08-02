@@ -16,6 +16,6 @@ namespace Application
         Task Delete_Product(int id);
         Task<Product> ShowImage(int id);
 
-
+        Task<IEnumerable<ProductResponseModel2>> GetByCategory(string CategoryName);
     }
 }

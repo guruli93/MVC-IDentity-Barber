@@ -1,6 +1,7 @@
 ﻿using Application;
 using Dai_2022.Models;
 using Dai_2022.Views.Product;
+using Domain.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -28,7 +29,7 @@ namespace Dai.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(productRequest); // Return the view with the current model to display validation errors
+                return View(productRequest); 
             }
 
             try
@@ -36,18 +37,14 @@ namespace Dai.Controllers
 
                 var result = await _productService.Add_Product(productRequest);
 
-                // If you want to display a success message and redirect to another action, use TempData
-                TempData["success"] = "Product created successfully!";
                 return RedirectToAction("Product"); // Redirect to the list of products
             }
             catch (Exception ex)
             {
-                // Log the exception (assuming you have a logging mechanism in place)
                 _logger.LogError(ex, "An error occurred while creating the product");
 
-                // Handle any exceptions appropriately
                 ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again later.");
-                return View(productRequest); // Return the view with the current model to display the error message
+                return View(productRequest); 
             }
         }
 
@@ -62,21 +59,16 @@ namespace Dai.Controllers
             {
                 var ex = await _productService.Update_Product(productReqvestModel, id);
 
-                // If update is successful, redirect to list of products
                 return RedirectToAction(("Product"));
             }
             catch (Exception ex)
             {
-                // Log the exception (assuming you have a logging mechanism in place)
                 _logger.LogError(ex, "An error occurred while updating the product");
 
-                // Handle any exceptions appropriately
                 ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again later.");
                 return View(productReqvestModel); // Return the view with the current model to display the error message
             }
         }
-
-
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -91,12 +83,26 @@ namespace Dai.Controllers
         {
             ViewBag.background_image = true;
             ViewBag.IsLoginPage = true;
-            var products = await _productService.GetAll_Productasync();
-            if (!string.IsNullOrEmpty(searchString))
+
+            var products = await _productService.GetByCategory(searchString);
+
+            if (products!=null)
             {
-                products = products.Where(p => p.ProductName.Contains(searchString));
+              
+                return View(products);
             }
-            return View(products.ToList());
+
+          
+            var product = await _productService.Get_Product_ByName(searchString);
+            var productResponse = new ProductResponseModel2
+            {   Id_Pr=product.Id_Pr,
+                ProductCategory = product.ProductCategory,
+                ProductName = product.ProductName,
+                ProdutCount = product.ProdutCount,
+                ImageData = product.ImageData,
+                ContentType = product.ContentType,
+            };
+            return View(new List<ProductResponseModel2> { productResponse });
         }
         public async Task<IActionResult> Delete(int Id)
         {
@@ -134,6 +140,7 @@ namespace Dai.Controllers
         {
             ViewBag.background_image = true;
             ViewBag.IsLoginPage = true;
+            
             try
             {
                 var product = await _productService.ShowImage(id);

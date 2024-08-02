@@ -1,5 +1,5 @@
 ﻿
-using Domain;
+
 using Domain.Product;
 
 namespace Application
@@ -11,7 +11,8 @@ namespace Application
         Task<Product> Get_Product_ById(int id);
         Task<IEnumerable<Product>> GetAll_Productasync();
         Task<Product> ShowImage(int id);
-     
+        Task<IEnumerable<Product>> GetByCategory(string CategoryName);
+
 
     }
 }

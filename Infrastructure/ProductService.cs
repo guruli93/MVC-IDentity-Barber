@@ -103,6 +103,7 @@ namespace Infrastructure
 
             return new ProductResponseModel2
             {
+                Id_Pr = product.Id,
                 ProductCategory = product.ProductCategory,
                 ProductName = product.ProductName,
                 ProdutCount = product.ProdutCount,
@@ -182,5 +183,34 @@ namespace Infrastructure
 
             return product;
         }
+
+ public async Task<IEnumerable<ProductResponseModel2>> GetByCategory(string categoryName)
+
+        {
+    var allProducts = await _repository.GetByCategory(categoryName);
+
+    var productResponseModels = allProducts.Select(item => new ProductResponseModel2
+    {
+        Id_Pr = item.Id,
+        ProductCategory = item.ProductCategory,
+        ProductName = item.ProductName,
+        ProdutCount = item.ProdutCount,
+        ImageData = item.Image?.ImageData, 
+        ContentType = item.ContentType,
+    }).ToList(); 
+
+    return productResponseModels;
+}
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
     }
 }

@@ -1,0 +1,38 @@
+﻿/* მოდალური ფანჯარა */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9); /* მთლიანი ეკრანის დაფარვა ღია შავად */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* სურათის ზემოთ */
+}
+
+/* სურათი მოდალურ ფანჯარაში */
+.modal-content {
+    max-width: 100vw; /* სურათის სიგანე მთლიან ეკრანზე */
+    max-height: 100vh; /* სურათის სიმაღლე მთლიან ეკრანზე */
+    object-fit: contain; /* სურათის შეფუთვა ეკრანზე */
+    border: none; /* საზღვრების მოშორება */
+}
+
+/* დახურვის ღილაკი */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+    }

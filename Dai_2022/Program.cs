@@ -30,7 +30,7 @@ internal class Program
             options.Password.RequireLowercase = true;
             options.Password.RequiredUniqueChars = 4;
 
-            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
             options.Lockout.MaxFailedAccessAttempts = 3;
             options.Lockout.AllowedForNewUsers = true;
 
@@ -50,7 +50,7 @@ internal class Program
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             options.Cookie.SameSite = SameSiteMode.Strict;
-            options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
             options.LoginPath = "/Login/Login";
             options.AccessDeniedPath = "/Product/AccessDenied";
             options.SlidingExpiration = true;

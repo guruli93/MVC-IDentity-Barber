@@ -17,13 +17,19 @@ namespace Infrastructure.Persistence.Repository
 
         public async Task<IEnumerable<Product>> GetAll_Productasync()
         {
-            //var products = await sQL_DbContext.Products.ToListAsync();
-
-            //return products;
-        var products = await sQL_DbContext.Products
+          
+        var products = await sQL_DbContext.Products.AsNoTracking()
        .Include(p => p.Image) 
        .ToListAsync();
             
+            return products;
+        }
+
+        public async Task<IEnumerable<Product>> GetByCategory(string CategoryName)
+        {
+            var products = await sQL_DbContext.Products.AsNoTracking().
+                Include(p => p.Image).
+                Where(Name => Name.ProductCategory == CategoryName).ToListAsync();
             return products;
         }
 
@@ -35,14 +41,19 @@ namespace Infrastructure.Persistence.Repository
 
         public async Task<Product> Get_Product_ByName(string name)
         {
-            var product = await sQL_DbContext.Products.AsNoTracking().FirstOrDefaultAsync(u => u.ProductName == name);
+            var product = await sQL_DbContext.Products
+                .AsNoTracking()
+                .Include(p => p.Image) 
+                .FirstOrDefaultAsync(u => u.ProductName == name);
             return product;
         }
 
 
+
         public async Task<Product> ShowImage(int id)
         {
-            var product = await sQL_DbContext.Products.AsNoTracking().Include(p => p.Image).FirstOrDefaultAsync(p => p.Id == id);
+            var product = await sQL_DbContext.Products.AsNoTracking().
+                Include(p => p.Image).FirstOrDefaultAsync(p => p.Id == id);
 
             return product;
 
