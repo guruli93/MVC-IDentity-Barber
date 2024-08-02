@@ -1,0 +1,31 @@
+ app.Use(async (context, next) =>
+ {
+     context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+     context.Response.Headers.Add("X-Frame-Options", "DENY");
+     context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+     await next();
+ });
+
+
+This code represents the configuration performed by ASP.NET Core middleware that adds security_HEADERs to HTTP responses. Here are the details of his work:
+
+1. **`X-Content-Type-Options: nosniff'**: This tells browsers not to provide the Content Type for the opposite content. This function leads to more security, as the permitted threats perform that they cannot learn the transported data.
+
+2. **`X-Frame-Options: DENY'**: This directive prohibits embedding websites in frames (iframes), which protects against Clickjacking attacks. In clickjacking, traffic can trick a user into thinking they are on one website, when in fact they may be on another website.
+
+3. **`X-XSS-Protection: 1; mode=block`**: This turns on the browsers broken XSS (Cross-Site Scripting) protection system and says to block all potential XSS attacks detected by the mechanisms.
+
+Code snippets provide additional security sophistication and protect the website from known attacks.
+
+//---------------------------------------------------------
+       builder.Services.AddDataProtection()
+   .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
+     .ProtectKeysWithCertificate("5064FA301F93C975BE25ABFBAEC90941F9136AA1");
+
+
+AddDataProtection(): This method enables data protection in an ASP.NET Core application. Data protection is used for authentication and encryption functions.
+
+PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys")): This configuration specifies where data protection keys should be persisted in the file system. Specifically, the C:\DataProtectionKeys directory represents the location where the keys you specify will be stored.
+
+ProtectKeysWithCertificate("5064FA301F93C975BE25ABFBAEC90941F9136AA1"): This method is used to encrypt data protection secrets with a certificate. This specifies the certificate fingerprint used to encrypt the secrets and protect the encryption key.
+

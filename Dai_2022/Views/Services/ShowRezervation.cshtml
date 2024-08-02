@@ -1,0 +1,211 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/styles1.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .highlight {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="booking-form" asp-action="BookAppointment" asp-controller="Booking" method="post">
+            <div class="form-group">
+                <label for="date">Selected Date:</label>
+                <div class="selected-date" id="selected-date">Please select a date</div>
+                <input type="text" id="date" name="SelectedDate" placeholder="Click here and select date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time-slots">Select a Time Slot:</label>
+                <div id="time-slots">
+                    <!-- Predefined Time Slots -->
+                    @for (var hour = 10; hour <= 21; hour++)
+                    {
+                        var time = hour < 12 ? $"{hour}:00 AM" : $"{hour - 12}:00 PM";
+                        <button type="button" class="time-slot free" data-time="@time">
+                            @time
+                        </button>
+                    }
+                </div>
+                <input type="hidden" id="selected-time" name="SelectedTime" required>
+            </div>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#paymentModal">Book Appointment</button>
+        </form>
+    </div>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Payment Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Payment Details</h3>
+                            <div class="checkbox pull-right">
+                                <label>
+                                    <input type="checkbox" /> Remember
+                                </label>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="cardNumber">CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required autofocus />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-7 col-md-7">
+                                        <div class="form-group">
+                                            <label for="expityMonth">EXPIRY DATE</label>
+                                            <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                            </div>
+                                            <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                <input type="text" class="form-control" id="expityYear" placeholder="YY" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5 col-md-5 pull-right">
+                                        <div class="form-group">
+                                            <label for="cvCode">CV CODE</label>
+                                            <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
+                        </li>
+                    </ul>
+                    <br />
+                    <button type="button" id="pay-button" class="btn btn-success btn-lg btn-block">Pay</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-success" class="alert alert-success" role="alert" style="display: none;">
+        დაჯავშნა შესრულებულია. თარიღი: <span id="booking-date"></span>. დაბრუნება <span id="countdown">5</span> წამში.
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function updateSlots(reservedTimes) {
+            document.querySelectorAll('.time-slot').forEach(button => {
+                button.classList.remove('reserved', 'selected', 'free');
+                button.classList.add('free');
+            });
+
+            document.querySelectorAll('.time-slot').forEach(button => {
+                const time = button.getAttribute('data-time');
+                if (reservedTimes.includes(time)) {
+                    button.classList.add('reserved');
+                } else {
+                    button.classList.add('free');
+                }
+            });
+        }
+
+        flatpickr("#date", {
+            dateFormat: "Y-m-d",
+            inline: true,
+            onChange: function (selectedDates, dateStr, instance) {
+                if (selectedDates.length === 0) {
+                    console.error('No date selected.');
+                    return;
+                }
+
+                const selectedDate = selectedDates[0];
+                const formattedDate = moment(selectedDate).tz("Asia/Tbilisi").format('YYYY-MM-DD');
+
+                document.getElementById('selected-date').innerText = formattedDate;
+
+                $.getJSON('/Booking/GetBookings', { date: formattedDate })
+                    .done(function (reservedTimes) {
+                        updateSlots(reservedTimes);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error('Failed to fetch reserved times:', textStatus, errorThrown);
+                    });
+            }
+        });
+
+        document.querySelectorAll('.time-slot').forEach(button => {
+            button.addEventListener('click', function () {
+                if (this.classList.contains('reserved')) {
+                    return;
+                }
+
+                document.querySelectorAll('.time-slot').forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('selected-time').value = this.getAttribute('data-time');
+            });
+        });
+
+        document.getElementById('pay-button').addEventListener('click', function () {
+            const formData = {
+                SelectedDate: document.getElementById('date').value,
+                SelectedTime: document.getElementById('selected-time').value
+            };
+
+            $.ajax({
+                url: '/Booking/BookAppointment',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    $('#paymentModal').modal('hide');
+                    document.getElementById('booking-date').textContent = formData.SelectedDate;
+                    document.getElementById('payment-success').style.display = 'block';
+
+                    let countdown = 5;
+                    const countdownElement = document.getElementById('countdown');
+                    const interval = setInterval(() => {
+                        countdown -= 1;
+                        countdownElement.textContent = countdown;
+                        if (countdown <= 0) {
+                            clearInterval(interval);
+                            window.location.href = "/Services/ShowRezervation";
+                        }
+                    }, 1000);
+
+                    const selectedDateElement = document.querySelector('.flatpickr-day.selected');
+                    if (selectedDateElement) {
+                        selectedDateElement.classList.add('highlight');
+                    }
+                },
+                error: function () {
+                    console.error('Payment request failed.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+﻿
+@using Dai_2022.Views.Product
+@model ProductReqvestModel2
+
+
+
+<div class="form-container mt-5">
+    <div class="form-header">
+        <h2 class="text-start">Create</h2>
+    </div>
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-body">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="ProductCount" class="form-label"></label>
+                <input asp-for="ProductCount" class="form-control" />
+                <span asp-validation-for="ProductCount" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductName" class="form-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ProductCategoryName" class="form-label"></label>
+                <input asp-for="ProductCategoryName" class="form-control" />
+                <span asp-validation-for="ProductCategoryName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PhotoData" class="form-label"></label>
+                <input asp-for="PhotoData" type="file" class="form-control" />
+                <span asp-validation-for="PhotoData" class="text-danger"></span>
+            </div>
+
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </form>
+</div>

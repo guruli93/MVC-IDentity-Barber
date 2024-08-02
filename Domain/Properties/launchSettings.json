@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Domain": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Lenovo\\Desktop\\Identity-MVC-Dai\\Dai_2022"
+    }
+  }
+}

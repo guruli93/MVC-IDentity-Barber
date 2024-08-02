@@ -1,0 +1,140 @@
+﻿/* Basic reset and full-page background setup */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/Templete_XX/images/hero_2.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Style for time-slot buttons */
+.time-slot {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding for better button appearance */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1.2rem;
+    border: none;
+    background: none;
+    color: white; /* Ensure text is visible on all backgrounds */
+    text-align: center; /* Center text */
+}
+
+    /* Free time slot */
+    .time-slot.free {
+        background-color: rgba(0, 255, 0, 0.5);
+    }
+
+    /* Busy time slot */
+    .time-slot.busy {
+        background-color: rgba(255, 0, 0, 0.5);
+        pointer-events: none;
+    }
+
+    /* Time slot with an image */
+    .time-slot img {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Hover effect for time slots */
+    .time-slot:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+/* Reserved time slot */
+.time-slot.reserved {
+    background-color: red;
+    color: white;
+    pointer-events: none; /* Prevent clicking on reserved slots */
+}
+
+/* Green text for the selected date div */
+.selected-date {
+    color: orangered;
+}
+
+/* Yellow text for the date input */
+#date {
+    color: yellow;
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    /* Animation on focus for date input */
+    #date:focus {
+        border-color: #ffcc00;
+        box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+        outline: none;
+        color: #ffcc00;
+    }
+
+/* Customizing the flatpickr calendar */
+.flatpickr-calendar {
+    background-color: #fff; /* Solid background color */
+    border: 1px solid #ddd; /* Optional border */
+}
+
+/* Customizing the days inside the flatpickr calendar */
+.flatpickr-day {
+    color: #000; /* Adjust text color for visibility */
+}
+
+/* Customizing the month and year in the flatpickr calendar */
+.flatpickr-month {
+    color: #000; /* Adjust color for visibility */
+}
+
+/* Additional styles for today and selected days */
+.flatpickr-day.today {
+    background-color: darkgreen;
+}
+
+.flatpickr-day.selected {
+    background-color: yellow;
+    color: black; /* Adjust text color for contrast */
+}
+
+/* Reserved date */
+.reserved-date {
+    background-color: red;
+    color: white;
+}
+
+/* Free date */
+.free {
+    background-color: green;
+    color: white;
+}
+
+/* Selected date border */
+.selected {
+    border: 2px solid yellow;
+}
+
