@@ -1,7 +1,7 @@
 ﻿using Application;
 using Dai_2022.Models;
 using Dai_2022.Views.Product;
-using Domain.Product;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -86,13 +86,42 @@ namespace Dai.Controllers
 
             var products = await _productService.GetByCategory(searchString);
 
-            if (products!=null)
+           
+            if (products.Count() > 0)
             {
-              
                 return View(products);
             }
 
-          
+            var product = await _productService.Get_Product_ByName(searchString);
+            var productResponse = new ProductResponseModel2
+            {
+                Id_Pr = product.Id_Pr,
+                ProductCategory = product.ProductCategory,
+                ProductName = product.ProductName,
+                ProdutCount = product.ProdutCount,
+                ImageData = product.ImageData,
+                ContentType = product.ContentType,
+            };
+
+            return View(new[] { productResponse });
+
+            /*
+            var product = await _productService.Get_Product_ByName(searchString);
+            var productResponse = new ProductResponseModel2
+            {
+                Id_Pr = product.Id_Pr,
+                ProductCategory = product.ProductCategory,
+                ProductName = product.ProductName,
+                ProdutCount = product.ProdutCount,
+                ImageData = product.ImageData,
+                ContentType = product.ContentType,
+            };
+
+            IEnumerable<ProductResponseModel2> productResponses = new List<ProductResponseModel2> { productResponse };
+            return View(productResponses);
+            */
+
+            /*
             var product = await _productService.Get_Product_ByName(searchString);
             var productResponse = new ProductResponseModel2
             {   Id_Pr=product.Id_Pr,
@@ -103,6 +132,7 @@ namespace Dai.Controllers
                 ContentType = product.ContentType,
             };
             return View(new List<ProductResponseModel2> { productResponse });
+            */
         }
         public async Task<IActionResult> Delete(int Id)
         {
