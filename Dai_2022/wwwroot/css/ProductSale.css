@@ -1,0 +1,85 @@
+﻿.product-ads {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+    position: relative; /* სლაიდერის ღილაკების სწორად განლაგებისათვის */
+}
+
+.product-carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%; /* სექციის სიგანე */
+}
+
+.product-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    /* გააფართოეთ საჭიროების მიხედვით */
+}
+.product-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px; /* ჰორიზონტალური სივრცე */
+    text-align: center;
+    flex: 0 0 auto; /* არ გაწვდოს სიმაღლეზე */
+    width: 300px; /* კონკრეტული სიგანე */
+    position: relative;
+    top: -10px; /* კონკრეტული ღირებულება, რომელიც აწევს აითემებს ზემოთ */
+}
+
+.product-carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.product-image {
+    width: 100%;
+    height: 300px; /* ან სხვა კონკრეტული სიმაღლე */
+    object-fit: cover; /* ფოტოების თანაბარი გამოჩენა */
+    display: block;
+    margin: 0 auto; /* ცენტრში განლაგება */
+}
+
+
+.product-info {
+    margin-top: 10px;
+}
+
+.product-name {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.product-category,
+.product-count {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* სლაიდერის ღილაკები */
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10; /* ღილაკების ზემოდან გამოსვლისათვის */
+}
+
+    .carousel-button.left {
+        left: 10px;
+    }
+
+    .carousel-button.right {
+        right: 10px;
+    }

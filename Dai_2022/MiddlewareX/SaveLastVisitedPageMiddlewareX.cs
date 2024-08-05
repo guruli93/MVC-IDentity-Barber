@@ -13,17 +13,24 @@ public class SaveLastVisitedPageMiddlewareX
 
     public async Task InvokeAsync(HttpContext context)
     {
-
+        var queryParameters = context.Request.Query;
+       
         var requestPath = context.Request.Path.Value;
         var method = context.Request.Method.ToUpperInvariant();
-        var queryParameters = context.Request.Query;
+       
         var fromButton = queryParameters["fromButton"].ToString();
 
+        if (requestPath.StartsWith("/Services/Product"))
+        {
+            var xx = 1;
+        }
         if (requestPath.StartsWith("/Product/DisplayImage") ||
             requestPath.StartsWith("/Product/Delete")
             || requestPath.StartsWith("/Booking/GetBookings") ||
             requestPath.StartsWith("/Product/Edit") ||
-            requestPath.StartsWith("/Product/Search"))
+            requestPath.StartsWith("/Product/Search")||
+             requestPath.StartsWith("/Services/Product"))
+
         {
 
             await _next(context);

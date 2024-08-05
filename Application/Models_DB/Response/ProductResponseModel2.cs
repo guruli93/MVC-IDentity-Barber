@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using Microsoft.AspNetCore.Http;
+
 
 namespace Dai_2022.Models
 {

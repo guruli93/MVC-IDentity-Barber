@@ -64,22 +64,22 @@ namespace Infrastructure
             }
         }
 
-        public async Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync()
-        {
-            var allProducts = await _repository.GetAll_Productasync();
+        //public async Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync(int page,int pegSize)
+        //{
+        //    var allProducts = await _repository.GetAll_Productasync( page,pegSize);
 
-            var productResponseModels = allProducts.Select(item => new ProductResponseModel2
-            {
-                Id_Pr = item.Id,
-                ProductCategory = item.ProductCategory,
-                ProductName = item.ProductName,
-                ProdutCount = item.ProdutCount,
-                ImageData = item.Image?.ImageData, // Handle null Image
-                ContentType = item.ContentType,
-            }).ToList();
+        //    var productResponseModels = allProducts.Select(item => new ProductResponseModel2
+        //    {
+        //        Id_Pr = item.Id,
+        //        ProductCategory = item.ProductCategory,
+        //        ProductName = item.ProductName,
+        //        ProdutCount = item.ProdutCount,
+        //        ImageData = item.Image?.ImageData, // Handle null Image
+        //        ContentType = item.ContentType,
+        //    }).ToList();
 
-            return productResponseModels;
-        }
+        //    return productResponseModels;
+        //}
 
 
         public async Task<ProductResponseModel2> Get_Product_ById(int id)
@@ -202,15 +202,45 @@ namespace Infrastructure
     return productResponseModels;
 }
 
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+        public async Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync()
+        {
+            var allProducts = await _repository.GetAll_Productasync();
+
+            var productResponseModels = allProducts.Select(item => new ProductResponseModel2
+            {
+                Id_Pr = item.Id,
+                ProductCategory = item.ProductCategory,
+                ProductName = item.ProductName,
+                ProdutCount = item.ProdutCount,
+                ImageData = item.Image?.ImageData, // Handle null Image
+                ContentType = item.ContentType,
+            }).ToList();
+
+            return productResponseModels;
+
+        }
+
+
+
+        /*
+        public async Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync(int page, int pageSize)
+        {
+            var allProducts = await _repository.GetAll_Productasync(page, pageSize);
+
+            var productResponseModels = allProducts.Select(item => new ProductResponseModel2
+            {
+                Id_Pr = item.Id,
+                ProductCategory = item.ProductCategory,
+                ProductName = item.ProductName,
+                ProdutCount = item.ProdutCount,
+                ImageData = item.Image?.ImageData, // Handle null Image
+                ContentType = item.ContentType,
+            }).ToList();
+
+            return productResponseModels;
+        }
+        */
     }
 }

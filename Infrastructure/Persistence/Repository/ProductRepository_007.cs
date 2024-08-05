@@ -24,6 +24,26 @@ namespace Infrastructure.Persistence.Repository
             
             return products;
         }
+        public async Task<IEnumerable<Product>> GetAll_Productasync(int page, int pageSize)
+        {
+            var products = await sQL_DbContext.Products.AsNoTracking()
+                .Include(p => p.Image)
+                .ToListAsync();
+
+            return products;
+        }
+        /*
+        public async Task<IEnumerable<Product>> GetAll_Productasync(int page, int pageSize)
+        {
+            var products = await sQL_DbContext.Products.AsNoTracking()
+                .Include(p => p.Image)
+                .Skip((page - 1) * pageSize) // გამოტოვეთ პროდუქტი, რაც შეესაბამება გვერდის ნომერს
+                .Take(pageSize) // აირჩიეთ პროდუქტი, რაც შეესაბამება გვერდის ზომას
+                .ToListAsync();
+
+            return products;
+        }
+        */
 
         public async Task<IEnumerable<Product>> GetByCategory(string CategoryName)
         {
@@ -31,6 +51,11 @@ namespace Infrastructure.Persistence.Repository
                 Include(p => p.Image).
                 Where(Name => Name.ProductCategory == CategoryName).ToListAsync();
             return products;
+        }
+
+        public async Task<int> GetTotalProductCountAsync()
+        {
+            return  await sQL_DbContext.Products.AsNoTracking().CountAsync();
         }
 
         public async Task<Product> Get_Product_ById(int id)

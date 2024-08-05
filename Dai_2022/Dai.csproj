@@ -17,12 +17,13 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\Image.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\ProductSale.css" />
     <_ContentIncludedByDefault Remove="wwwroot\Services.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\Shared\_Layout_2.cshtml" />
-    <None Include="wwwroot\Services.js" />
+    <None Include="wwwroot\js\Services.js" />
     <None Include="wwwroot\Templete_XX\.DS_Store" />
     <None Include="wwwroot\Templete_XX\css\.DS_Store" />
     <None Include="wwwroot\Templete_XX\fonts\.DS_Store" />

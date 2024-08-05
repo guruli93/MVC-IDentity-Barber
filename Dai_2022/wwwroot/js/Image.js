@@ -5,16 +5,16 @@
     // სურათის შევსება Base64 მონაცემებით
     modalImage.src = 'data:' + contentType + ';base64,' + imageData;
 
-    // მოდალური ფანჯარის გაწვდვა
-    modal.style.display = 'flex'; /* განთავსეთ მოდალური ფანჯარა ცენტრში */
+  
+    modal.style.display = 'flex';
 }
 
 function closeImageModal() {
     var modal = document.getElementById('imageModal');
-    modal.style.display = 'none'; /* დახურეთ მოდალური ფანჯარა */
+    modal.style.display = 'none';
 }
 
-// დახურეთ მოდალური ფანჯარა ფონზე დაწკაპებით
+
 window.onclick = function (event) {
     var modal = document.getElementById('imageModal');
     if (event.target == modal) {

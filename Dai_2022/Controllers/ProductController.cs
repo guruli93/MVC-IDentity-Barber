@@ -148,10 +148,22 @@ namespace Dai.Controllers
         {
             ViewBag.background_image = true;
             ViewBag.IsLoginPage = true;
+            var productList = await _productService.GetAll_Productasync();
 
-            var product007List = await _productService.GetAll_Productasync();
-            return View(product007List);
+            var productResponseList = productList.Select(p => new ProductResponseModel2
+            {
+                Id_Pr = p.Id_Pr,
+                ProductName = p.ProductName,
+                ProdutCount = p.ProdutCount.ToString(),
+                ProductCategory = p.ProductCategory,
+                ContentType = p.ContentType,
+                ImageData = p.ImageData
+            }).ToList();
+
+         
+            return View(productResponseList);
         }
+
 
         public async Task<IActionResult> Edit(ProductReqvestModel2 model)
         {

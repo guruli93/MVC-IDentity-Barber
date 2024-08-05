@@ -1,15 +1,16 @@
 ﻿
 using Application.BookingService;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Html.Controllers
+namespace Controllers
 {
     public class ServicesController : Controller
     {
         private readonly IBookingService _bookingService;
+       
         public ServicesController(IBookingService bookingService)
         {
             _bookingService = bookingService;
+           
         }
         public IActionResult Services()
         {
@@ -24,7 +25,6 @@ namespace Html.Controllers
           
             return View();
         }
-
 
 
     }

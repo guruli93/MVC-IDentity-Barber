@@ -1,12 +1,12 @@
-﻿body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Templete_XX/images/hero_1.jpg');
-    background-position: center;
+﻿/*body {*/
+   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Templete_XX/images/hero_1.jpg');*/
+    /*background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     margin: 0;
     padding: 0;
-}
+}*/
 
 .container {
     margin: 20px; /* სივრცე გვერდზე */
