@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Templete_XX\**" />
+    <Content Remove="wwwroot\Templete_XX\**" />
+    <EmbeddedResource Remove="wwwroot\Templete_XX\**" />
+    <None Remove="wwwroot\Templete_XX\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Shared\_Layout_2.cshtml" />
     <Content Remove="wwwroot\Services.js" />
   </ItemGroup>
@@ -23,13 +30,9 @@
 
   <ItemGroup>
     <None Include="Views\Shared\_Layout_2.cshtml" />
+    <None Include="wwwroot\css\fonts\.DS_Store" />
+    <None Include="wwwroot\images\.DS_Store" />
     <None Include="wwwroot\js\Services.js" />
-    <None Include="wwwroot\Templete_XX\.DS_Store" />
-    <None Include="wwwroot\Templete_XX\css\.DS_Store" />
-    <None Include="wwwroot\Templete_XX\fonts\.DS_Store" />
-    <None Include="wwwroot\Templete_XX\images\.DS_Store" />
-    <None Include="wwwroot\Templete_XX\scss\.DS_Store" />
-    <None Include="wwwroot\Templete_XX\scss\bootstrap\.DS_Store" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +57,10 @@
 
   <ItemGroup>
     <Content Update="Views\Product\ProductX.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\css\style.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

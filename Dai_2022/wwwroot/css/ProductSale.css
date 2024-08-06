@@ -16,6 +16,7 @@
     transition: transform 0.5s ease-in-out;
     /* გააფართოეთ საჭიროების მიხედვით */
 }
+
 .product-card {
     border: 1px solid #ddd;
     padding: 20px;
@@ -24,15 +25,7 @@
     flex: 0 0 auto; /* არ გაწვდოს სიმაღლეზე */
     width: 300px; /* კონკრეტული სიგანე */
     position: relative;
-    top: -10px; /* კონკრეტული ღირებულება, რომელიც აწევს აითემებს ზემოთ */
 }
-
-.product-carousel {
-    display: flex;
-    overflow: hidden;
-    position: relative;
-}
-
 
 .product-image {
     width: 100%;
@@ -41,7 +34,6 @@
     display: block;
     margin: 0 auto; /* ცენტრში განლაგება */
 }
-
 
 .product-info {
     margin-top: 10px;

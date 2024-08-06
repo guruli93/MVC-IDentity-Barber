@@ -6,7 +6,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('/Templete_XX/images/hero_2.jpg') no-repeat center center fixed;
+    background: url('/images/hero_2.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
