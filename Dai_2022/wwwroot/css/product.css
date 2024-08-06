@@ -1,55 +1,52 @@
-﻿/*body {*/
-   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Templete_XX/images/hero_1.jpg');*/
-    /*background-position: center;
+﻿body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Templete_XX/images/hero_1.jpg');
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
     margin: 0;
     padding: 0;
-}*/
+}
 
 .container {
-    margin: 20px; /* სივრცე გვერდზე */
+    margin: 20px;
 }
 
-/* ცხრილის განთავსება მარცხნივ */
 .table-container {
-    overflow-x: auto; /* სქროლინგი ჰორიზონტალურად */
-    width: 100%; /* ცხრილის სიგანის 100% */
-    margin: 0; /* განთავსება მარცხნივ */
-    padding: 0; /* Padding-ის წაშლა */
+    overflow-x: auto; 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
 }
 
-/* ცხრილის სტილი */
 .table {
-    width: 100%; /* ცხრილის სიგანის 100% */
-    font-size: 1.1rem; /* ტექსტის ზომა */
-    border-collapse: collapse; /* სვეტების გაწვდვა */
-    border: none; /* კონტურის გაწვდვა */
+    width: 100%; 
+    font-size: 1.1rem; 
+    border-collapse: collapse; 
+    border: none; 
 }
 
-    /* ცხრილის სვეტების სტილი */
     .table thead th {
-        /*background-color: #333;*/ /* სქელი შავი ფონები */
-        color: red; /* წითელი ტექსტი */
+        /*background-color: #333;*/ 
+        color: red; 
         font-weight: bold;
-        border: none; /* სვეტების კონტურების წაშლა */
+        border: none; 
     }
 
     /* ცხრილის სხეულის სტილი */
     .table tbody td {
-        /*background-color: #222;*/ /* ცხრილის სვეტების შავი ფონები */
-        color: #ffcc00; /* ყვითელი ტექსტი */
-        border: none; /* სვეტების კონტურების წაშლა */
+        /*background-color: #222;*/ 
+        color: #ffcc00; 
+        border: none; 
     }
 
     /* სურათების სტილი */
     .table img {
-        max-width: 100px; /* სურათების მაქსიმალური სიგანე */
-        max-height: 100px; /* სურათების მაქსიმალური სიმაღლე */
+        max-width: 100px; 
+        max-height: 100px;
     }
 
     /* ღილაკების სტილი */
     .table .btn-group .btn {
-        font-size: 0.9rem; /* ღილაკების ზომა */
+        font-size: 0.9rem; 
     }

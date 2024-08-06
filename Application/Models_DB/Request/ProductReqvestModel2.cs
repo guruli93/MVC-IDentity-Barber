@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Http;
-namespace Dai_2022.Views.Product
+namespace Application.Models_DB
 {
     public class ProductReqvestModel2
     {

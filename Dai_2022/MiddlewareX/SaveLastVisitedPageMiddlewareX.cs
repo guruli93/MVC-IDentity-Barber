@@ -20,10 +20,6 @@ public class SaveLastVisitedPageMiddlewareX
        
         var fromButton = queryParameters["fromButton"].ToString();
 
-        if (requestPath.StartsWith("/Services/Product"))
-        {
-            var xx = 1;
-        }
         if (requestPath.StartsWith("/Product/DisplayImage") ||
             requestPath.StartsWith("/Product/Delete")
             || requestPath.StartsWith("/Booking/GetBookings") ||
@@ -52,7 +48,7 @@ public class SaveLastVisitedPageMiddlewareX
                 "/Services/ShowRezervation",
                 "/Login/Login",
                 "/AccountRegister/Register",
-                "/Product/Product",
+                "/Product/ProductX",
                 "/Product/Create"
 
             };

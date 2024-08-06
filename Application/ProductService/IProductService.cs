@@ -1,10 +1,8 @@
-﻿using Dai_2022.Models;
-using Dai_2022.Views.Product;
-using Domain;
+﻿
 using Domain.Product;
 
 
-namespace Application
+namespace Application.Models_DB
 {
     public interface IProductService
     {
@@ -15,7 +13,8 @@ namespace Application
         Task<ProductResponseModel2> Update_Product(ProductReqvestModel2 model, int id);
         Task Delete_Product(int id);
         Task<Product> ShowImage(int id);
-        //Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync(int page, int pegSize);
+        Task<IEnumerable<ProductResponseModel2>> GettingDatabyPages(int page, int pegSize);
         Task<IEnumerable<ProductResponseModel2>> GetByCategory(string CategoryName);
+        Task<int> AmountOfallData();
     }
 }

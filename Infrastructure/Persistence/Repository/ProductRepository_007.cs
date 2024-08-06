@@ -32,18 +32,18 @@ namespace Infrastructure.Persistence.Repository
 
             return products;
         }
-        /*
-        public async Task<IEnumerable<Product>> GetAll_Productasync(int page, int pageSize)
-        {
-            var products = await sQL_DbContext.Products.AsNoTracking()
-                .Include(p => p.Image)
-                .Skip((page - 1) * pageSize) // გამოტოვეთ პროდუქტი, რაც შეესაბამება გვერდის ნომერს
-                .Take(pageSize) // აირჩიეთ პროდუქტი, რაც შეესაბამება გვერდის ზომას
-                .ToListAsync();
 
-            return products;
-        }
-        */
+        public async Task<IEnumerable<Product>> GetAll_WitchPagination(int page, int pageSize)
+{
+        var products = await sQL_DbContext.Products
+       .OrderBy(p => p.Id).
+        AsNoTracking()
+       .Include(p => p.Image)
+       .Skip((page - 1) * pageSize) 
+       .Take(pageSize) 
+       .ToListAsync();
+        return products;
+}
 
         public async Task<IEnumerable<Product>> GetByCategory(string CategoryName)
         {
@@ -72,8 +72,6 @@ namespace Infrastructure.Persistence.Repository
                 .FirstOrDefaultAsync(u => u.ProductName == name);
             return product;
         }
-
-
 
         public async Task<Product> ShowImage(int id)
         {

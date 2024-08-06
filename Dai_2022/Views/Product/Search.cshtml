@@ -1,17 +1,13 @@
-﻿
+﻿@using Application.Models_DB
+
     @model IEnumerable<ProductResponseModel2>
 
 
-
-@if (TempData["success"] != null)
-{
-    <h2>@TempData["success"]</h2>
-}
-
+@* <link rel="stylesheet" href="~/css/product.css" /> *@
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Product List</h2>
+            <h2 class="text-primary">Search result</h2>
         </div>
     
 

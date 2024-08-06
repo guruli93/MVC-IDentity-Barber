@@ -1,6 +1,5 @@
 ﻿using Application;
-using Dai_2022.Models;
-using Dai_2022.Views.Product;
+using Application.Models_DB;
 using Domain.Image;
 using Domain.Product;
 
@@ -64,19 +63,42 @@ namespace Infrastructure
             }
         }
 
-        //public async Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync(int page,int pegSize)
-        //{
-        //    var allProducts = await _repository.GetAll_Productasync( page,pegSize);
+        public async Task<IEnumerable<ProductResponseModel2>> GettingDatabyPages(int page, int pegSize)
+        {
+            var allProducts = await _repository.GetAll_WitchPagination(page, pegSize);
 
-        //    var productResponseModels = allProducts.Select(item => new ProductResponseModel2
-        //    {
-        //        Id_Pr = item.Id,
-        //        ProductCategory = item.ProductCategory,
-        //        ProductName = item.ProductName,
-        //        ProdutCount = item.ProdutCount,
-        //        ImageData = item.Image?.ImageData, // Handle null Image
-        //        ContentType = item.ContentType,
-        //    }).ToList();
+            var productResponseModels = allProducts.Select(item => new ProductResponseModel2
+            {
+                Id_Pr = item.Id,
+                ProductCategory = item.ProductCategory,
+                ProductName = item.ProductName,
+                ProdutCount = item.ProdutCount,
+                ImageData = item.Image?.ImageData,
+                ContentType = item.ContentType,
+            }).ToList();
+
+            return productResponseModels;
+        }
+
+        //public async Task<IEnumerable<ProductResponseModel2>> GettingDatabyPages(int page, int pageSize)
+        //{
+        //    // გამოთვალეთ რამდენი ჩანაწერი უნდა გამოტოვოთ
+        //    int skip = (page - 1) * pageSize;
+
+        //    var allProducts = await _repository.GetAll_WitchPagination(page, pageSize);
+
+        //    var productResponseModels = allProducts
+        //        .Skip(skip)
+        //        .Take(pageSize)
+        //        .Select(item => new ProductResponseModel2
+        //        {
+        //            Id_Pr = item.Id,
+        //            ProductCategory = item.ProductCategory,
+        //            ProductName = item.ProductName,
+        //            ProdutCount = item.ProdutCount,
+        //            ImageData = item.Image?.ImageData,
+        //            ContentType = item.ContentType,
+        //        }).ToList();
 
         //    return productResponseModels;
         //}
@@ -184,7 +206,7 @@ namespace Infrastructure
             return product;
         }
 
- public async Task<IEnumerable<ProductResponseModel2>> GetByCategory(string categoryName)
+        public async Task<IEnumerable<ProductResponseModel2>> GetByCategory(string categoryName)
 
         {
     var allProducts = await _repository.GetByCategory(categoryName);
@@ -222,25 +244,13 @@ namespace Infrastructure
 
         }
 
-
-
-        /*
-        public async Task<IEnumerable<ProductResponseModel2>> GetAll_Productasync(int page, int pageSize)
+        public async Task<int> AmountOfallData()
         {
-            var allProducts = await _repository.GetAll_Productasync(page, pageSize);
-
-            var productResponseModels = allProducts.Select(item => new ProductResponseModel2
-            {
-                Id_Pr = item.Id,
-                ProductCategory = item.ProductCategory,
-                ProductName = item.ProductName,
-                ProdutCount = item.ProdutCount,
-                ImageData = item.Image?.ImageData, // Handle null Image
-                ContentType = item.ContentType,
-            }).ToList();
-
-            return productResponseModels;
+           return await _repository.GetTotalProductCountAsync();
         }
-        */
+
+
+
+       
     }
 }

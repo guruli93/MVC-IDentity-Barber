@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ProductResponseModel2>
+﻿@using Application.Models_DB
+@model IEnumerable<ProductResponseModel2>
 
 @{
     bool isLoginPage = ViewBag.IsLoginPage ?? false;
@@ -47,7 +48,7 @@
                                     </li>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <li><a href="@Url.Action("Product", "Product")" class="nav-link">Product</a></li>
+                                        <li><a href="@Url.Action("ProductX", "Product")" class="nav-link">Product</a></li>
                                     }
                                 }
                                 else

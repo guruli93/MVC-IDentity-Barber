@@ -1,6 +1,6 @@
-﻿using Application;
+﻿
 using Dai_2022.Models;
-using Dai_2022.Views.Product;
+using Application.Models_DB;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -164,7 +164,20 @@ namespace Dai.Controllers
             return View(productResponseList);
         }
 
+        public async Task<IActionResult> ProductX(int page = 1)
+        {
+            ViewBag.background_image = true;
+            ViewBag.IsLoginPage = true;
+            int pageSize = 4;
+            var products = await _productService.GettingDatabyPages(page, pageSize);
 
+            var totalProducts = await _productService.AmountOfallData();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+
+            return View(products);
+        }
         public async Task<IActionResult> Edit(ProductReqvestModel2 model)
         {
             ViewBag.background_image = true;

@@ -1,6 +1,5 @@
 ﻿using Application;
 using Application.BookingService;
-using Dai_2022.Models;
 using Domain.Booking;
 
 namespace Infrastructure

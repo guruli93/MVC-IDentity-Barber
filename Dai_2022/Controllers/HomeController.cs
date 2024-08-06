@@ -1,10 +1,8 @@
-﻿using Application;
+﻿using Application.Models_DB;
 using Dai_2022.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
-
-
+using Application;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -34,7 +32,39 @@ public class HomeController : Controller
         return View();
     }
 
-   
+    public async Task<IActionResult> Privacy(int page = 1)
+    {
+        ViewBag.background_image = true;
+        ViewBag.IsLoginPage = true;
+        int pageSize = 7;
+        var products = await _productService.GettingDatabyPages(page, pageSize);
+
+        var totalProducts = await _productService.AmountOfallData();
+
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+
+        return View(products);
+    }
+
+
+    /*
+    public async Task<IActionResult> Privacy(int page = 1)
+    {
+        ViewBag.background_image = true;
+        ViewBag.IsLoginPage = true;
+        int pageSize = 5;
+        var products = await _productService.GettingDatabyPages(page, pageSize);
+
+        var totalProducts = await _productService.AmountOfallData();
+        var totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = totalPages;
+
+        return View(products);
+    }
+    */
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

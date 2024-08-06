@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Models_DB;
 using Application.BookingService;
 using Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
