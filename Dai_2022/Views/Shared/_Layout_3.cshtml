@@ -56,7 +56,7 @@
                                     <li><a href="@Url.Action("Index", "Home")" class="nav-link">Home</a></li>
                                     <li class="nav-item dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" id="servicesLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            მომსახურებები
+                                            Services
                                         </a>
                                         <ul class="dropdown-menu" id="servicesDropdown" aria-labelledby="servicesLink">
                                             <li class="dropdown-item">
@@ -92,8 +92,8 @@
                                         </ul>
                                     </li>
                                     <li><a href="@Url.Action("Privacy", "Home")" class="nav-link">About</a></li>
-                                    <li><a href="@Url.Action("Register", "AccountRegister")" class="nav-link">Register</a></li>
-                                    <li><a href="@Url.Action("Login", "Login")" class="nav-link">Login</a></li>
+@*                                     <li><a href="@Url.Action("Register", "AccountRegister")" class="nav-link">Register</a></li>
+ *@                                    <li><a href="@Url.Action("Login", "Login")" class="nav-link">Login</a></li>
                                 }
                             </ul>
                         </nav>
@@ -110,6 +110,8 @@
                         <div class="row align-items-center justify-content-center text-center">
                             <div class="col-md-7">
                                 <h1 class="mb-3">Register and book a visit</h1>
+                                <p><a href="@Url.Action("Register", "AccountRegister")" class="btn btn-primary">Register</a></p>
+
                             </div>
                         </div>
                     </div>
@@ -132,9 +134,10 @@
                             <div class="product-card">
                                 <img src="data:@product.ContentType;base64,@Convert.ToBase64String(product.ImageData)" alt="@product.ProductName" class="product-image" />
                                 <div class="product-info">
-                                    <h3 class="product-name">@product.ProductName</h3>
-                                    <p class="product-category">@product.ProductCategory</p>
-                                    <p class="product-count">ხელმისაწვდომი რაოდენობა: @product.ProdutCount</p>
+                                   
+                                    <p class="product-name">ProductName: @product.ProductName</p>
+                                    <p class="product-category">ProductCategory: @product.ProductCategory</p>
+                                    <p class="product-count">ProductCount: @product.ProdutCount</p>
                                     <a href="@Url.Action("Buy", "Product", new { id = product.Id_Pr })" class="btn btn-primary">ყიდვა</a>
                                 </div>
                             </div>
