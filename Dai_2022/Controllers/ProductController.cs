@@ -37,7 +37,7 @@ namespace Dai.Controllers
 
                 var result = await _productService.Add_Product(productRequest);
 
-                return RedirectToAction("Product"); // Redirect to the list of products
+                return RedirectToAction("ProductX"); 
             }
             catch (Exception ex)
             {
@@ -140,8 +140,8 @@ namespace Dai.Controllers
             ViewBag.IsLoginPage = true;
             await _productService.Delete_Product(Id);
 
-            return RedirectToAction("Product");
-            // return View();
+
+            return RedirectToAction("ProductX");
         }
         [HttpGet]
         public async Task<IActionResult> Product()
@@ -164,6 +164,7 @@ namespace Dai.Controllers
             return View(productResponseList);
         }
 
+        [HttpGet]
         public async Task<IActionResult> ProductX(int page = 1)
         {
             ViewBag.background_image = true;

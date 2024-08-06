@@ -13,7 +13,7 @@ body, html {
 /* Style for time-slot buttons */
 .time-slot {
     display: inline-block;
-    padding: 10px 20px; /* Adjust padding for better button appearance */
+    padding: 20px 20px; /* Adjust padding for better button appearance */
     border-radius: 5px; /* Rounded corners for buttons */
     cursor: pointer;
     transition: background-color 0.3s;
@@ -22,6 +22,9 @@ body, html {
     background: none;
     color: white; /* Ensure text is visible on all backgrounds */
     text-align: center; /* Center text */
+    width: 100px; /* Make them square by setting equal width and height */
+    height: 100px;
+    margin: 5px; /* Add margin between squares */
 }
 
     /* Free time slot */
@@ -97,8 +100,14 @@ th {
 
 /* Customizing the flatpickr calendar */
 .flatpickr-calendar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: scale(1.5); /* Increase size by 1.5 times */
+    transform-origin: top left; /* Ensure the scale is from the top-left corner */
     background-color: #fff; /* Solid background color */
     border: 1px solid #ddd; /* Optional border */
+    z-index: 10; /* Ensure it appears above other elements */
 }
 
 /* Customizing the days inside the flatpickr calendar */
