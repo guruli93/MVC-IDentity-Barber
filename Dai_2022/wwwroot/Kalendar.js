@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () =>
+{
     const timeSlotsContainer = document.getElementById('time-slots');
     const dateInput = document.getElementById('date');
     const selectedDateDisplay = document.getElementById('selected-date');
