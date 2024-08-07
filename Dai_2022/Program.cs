@@ -1,7 +1,6 @@
 
 using Infrastructure;
 using Infrastructure.Configuration_DB;
-
 using Infrastructure.Persistence.DbContext;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,7 @@ internal class Program
             .PersistKeysToFileSystem(new DirectoryInfo(@"C:\DataProtectionKeys"))
             .ProtectKeysWithCertificate("5064FA301F93C975BE25ABFBAEC90941F9136AA1");
 
-        // Add services for controllers and views
+ //--------------------------------------------------//
         builder.Services.AddControllersWithViews();
 
     
@@ -40,11 +39,11 @@ internal class Program
         })
         .AddEntityFrameworkStores<DbContext>()
         .AddDefaultTokenProviders();
-
-        // Add database and other services
+        //---------------------------------------------------//
+       
         builder.Services.AddDB_Services(builder.Configuration);
 
-        // Configure application cookie
+       //-----------------------------------------------------------//
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.Cookie.HttpOnly = true;
@@ -56,12 +55,9 @@ internal class Program
             options.SlidingExpiration = true;
 
         });
-
-
-
-        // Add session services
-
+       //-------------------------------------------------------------------------//
         builder.Services.AddDistributedMemoryCache();
+        //-----------------------------------------------------------------//
         builder.Services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -71,10 +67,10 @@ internal class Program
         });
         
         builder.Services.AddEndpointsApiExplorer();
-
+        //-------------------------------------------------------//
         var app = builder.Build();
 
-        // Seed roles
+     
         using (var scope = app.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
@@ -88,7 +84,7 @@ internal class Program
                 logger.LogError(ex, "An error occurred seeding the DB.");
             }
         }
-        //Add Admin Panel
+       
         using (var scope = app.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
@@ -103,7 +99,6 @@ internal class Program
             }
         }
 
-        // Configure middleware
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
@@ -120,7 +115,8 @@ internal class Program
         app.UseAuthorization();
         app.UseCookiePolicy();
         app.UseSession();
-        app.UseMiddleware<SaveLastVisitedPageMiddlewareX>(); // Add custom middleware
+        //app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<SaveLastVisitedPageMiddlewareX>(); 
 
         app.Use(async (context, next) =>
         {

@@ -1,4 +1,5 @@
 ﻿using Application;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -77,7 +78,8 @@ namespace Dai.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    return RedirectToAction("Login", "Login");
+                    //throw new InvalidUserCredentialsException();
                 }
             }
 

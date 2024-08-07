@@ -5,12 +5,13 @@ public class SaveLastVisitedPageMiddlewareX
     private readonly RequestDelegate _next;
     private readonly ILogger<SaveLastVisitedPageMiddlewareX> _logger;
 
-    public SaveLastVisitedPageMiddlewareX(RequestDelegate next, ILogger<SaveLastVisitedPageMiddlewareX> logger)
+    public SaveLastVisitedPageMiddlewareX(RequestDelegate next, 
+        ILogger<SaveLastVisitedPageMiddlewareX> logger)
     {
         _next = next;
         _logger = logger;
     }
-
+    //-------------------------------------------------------------------//
     public async Task InvokeAsync(HttpContext context)
     {
         var queryParameters = context.Request.Query;
@@ -91,7 +92,7 @@ public class SaveLastVisitedPageMiddlewareX
                             Secure = true,
                             HttpOnly = true,
                             IsEssential = true,
-                            //Expires = DateTimeOffset.UtcNow.AddHours(1)
+                            Expires = DateTimeOffset.UtcNow.AddHours(1)
                         });
 
                         context.Session.SetString("LastVisitedPage", requestPath);
@@ -112,11 +113,14 @@ public class SaveLastVisitedPageMiddlewareX
             await _next(context);
         }
     }
+
+    //---------------------------------------------------------------------//
     private bool IsValidRedirect(string storedPath, string currentPath)
     {
         return storedPath != currentPath && !string.IsNullOrEmpty(storedPath) && storedPath != "/" && !currentPath.Equals(storedPath,
             StringComparison.OrdinalIgnoreCase);
     }
+    //------------------------------------------------------------------------//
     private async Task HandleRequestRouteValues(HttpContext context)
     {
         var routeValues = context.Request.RouteValues;
@@ -137,6 +141,7 @@ public class SaveLastVisitedPageMiddlewareX
 
 
     }
+    //-------------------------------------------------------------------//
     private async Task RedirectToLastVisitedPage(HttpContext context, string redirectPath)
     {
         if (!context.User.Identity.IsAuthenticated &&
@@ -160,8 +165,9 @@ public class SaveLastVisitedPageMiddlewareX
             context.Response.Cookies.Delete("Last");
             context.Response.Redirect(redirectPath);
         }
-        await Task.CompletedTask; // Ensure asynchronous continuation
+        await Task.CompletedTask; 
     }
+    //--------------------------------------------------------------------------------------------//
 }
 
 

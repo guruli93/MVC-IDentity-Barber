@@ -1,5 +1,6 @@
 ﻿
 using Application;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 namespace Dai.Controllers
@@ -32,37 +33,45 @@ namespace Dai.Controllers
             ViewBag.IsLoginPage = true;
             return View();
         }
+  
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-
             if (ModelState.IsValid)
             {
+              
+                var existingUser = await userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
+                {
+
+                    throw new UserAlreadyExistsException();
+                }
+
                 var user = new IdentityUser
                 {
                     UserName = model.Email,
                     Email = model.Email
                 };
-             
 
                 var result = await userManager.CreateAsync(user, model.Password);
-               
+
                 if (result.Succeeded)
                 {
-
-                    await userManager.AddToRoleAsync(user, "User"); 
+                    await userManager.AddToRoleAsync(user, "User");
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("ShowRezervation", "Services");
                 }
-               
-                foreach (var error in result.Errors)
+                else
                 {
-
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
             return View(model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Logout()
