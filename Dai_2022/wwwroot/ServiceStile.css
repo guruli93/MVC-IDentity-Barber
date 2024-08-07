@@ -1,73 +1,71 @@
 ﻿/* Dropdown menu styles */
 #servicesDropdown {
     padding: 20px;
-    background-color: transparent; /* ფონზე არ იყოს ფერი */
-    display: flex; /* გაწვდოს ობიექტები განლაგებაში */
-    flex-wrap: wrap; /* ჯგოს ნივთები ახალ რიგში */
-    gap: 20px; /* მისაღები მარყუჟების გაწვდვა */
-    opacity: 0; /* თავდაპირველად დამალვა */
-    visibility: hidden; /* გამოჩენა არ იყოს */
-    transition: opacity 0.5s ease, visibility 0.5s ease; /* ანიმაციის დრო */
-    align-items: center; /* ვერტიკალური განლაგება */
+    background-color: transparent;
+    display: flex; 
+    flex-wrap: wrap;
+    gap: 20px;
+    opacity: 0;
+    visibility: hidden; 
+    transition: opacity 0.5s ease, visibility 0.5s ease; 
+    align-items: center;
 }
 
 /* Remove default dropdown item styling */
 .dropdown-item {
-    padding: 0; /* padding-ის წაშლა */
-    border: none; /* კონტურის წაშლა */
-    background-color: transparent; /* ფონზე არ იყოს ფერი */
-    display: flex; /* ჰორიზონტალური განლაგება */
-    align-items: center; /* ვერტიკალური ცენტრირება */
-    flex: 1 1 auto; /* აუცილებელი სივრცის სექლიზირება */
+    padding: 0; 
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center; 
+    flex: 1 1 auto; 
 }
 
-/* ჯგუფური განლაგება */
 .service-1 {
     display: flex;
-    align-items: center; /* აიკონების ცენტრირება ვერტიკალურად */
-    background-color: transparent; /* ფონზე არ იყოს ფერი */
+    align-items: center; 
+    background-color: transparent; 
     padding: 10px;
-    border: none; /* კონტურის წაშლა */
-    border-radius: 0; /* კონტურის წაშლა */
-    flex: 1 1 auto; /* ჰორიზონტალური სექლიზირება */
-    box-sizing: border-box; /* საზღვრების სექლიზირება */
-    text-align: left; /* ტექსტი მარცხნივ განლაგება */
+    border: none;
+    border-radius: 0; 
+    flex: 1 1 auto;
+    box-sizing: border-box; 
+    text-align: left; 
 }
 
-/* აიკონის სტილი */
+
 .service-1-icon {
-    margin-right: 15px; /* აიკონების მარყუჟი ტექსტთან */
-    font-size: 30px; /* აიკონის ზომის შემცირება */
-    color: #ffcc00; /* აიკონის ფერი */
-    background-color: transparent; /* აიკონის ფონზე გამჭვირვალე */
-    border-radius: 0; /* კონტურის წაშლა */
-    width: 50px; /* აიკონის ზომის შემცირება */
-    height: 50px; /* აიკონის ზომის შემცირება */
+    margin-right: 15px;
+    font-size: 30px; 
+    color: #ffcc00;
+    background-color: transparent; 
+    border-radius: 0; 
+    width: 50px;
+    height: 50px; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* სექციის შინაარსის სტილი */
 .service-1-contents {
-    display: block; /* გაწვდოს სექციის შინაარსი */
-    color: #333; /* ტექსტის ფერი */
+    display: block; 
+   /* color: #333; */
 }
 
     .service-1-contents h3 {
         margin: 0;
         font-size: 18px;
-        color: #333;
+      /*  color: #333;*/
     }
 
     .service-1-contents p {
         margin: 5px 0 0;
         font-size: 14px;
-        color: #666;
+      /*  color: #666;*/
     }
 
-/* როცა სექცია გახსნილია, გვანახოს ნიშანი */
+
 #servicesDropdown.show {
-    opacity: 1; /* გამოჩენა */
-    visibility: visible; /* გამოჩენა */
+    opacity: 1; 
+    visibility: visible; 
 }

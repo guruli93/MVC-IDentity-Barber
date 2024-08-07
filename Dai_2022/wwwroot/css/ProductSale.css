@@ -1,38 +1,38 @@
 ﻿.product-ads {
     padding: 50px 0;
-    background-color: #f8f9fa;
-    position: relative; /* სლაიდერის ღილაკების სწორად განლაგებისათვის */
+   /* background-color: #f8f9fa;*/
+    position: relative; 
 }
 
 .product-carousel {
     display: flex;
     overflow: hidden;
     position: relative;
-    width: 100%; /* სექციის სიგანე */
+    width: 100%; 
 }
 
 .product-container {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    /* გააფართოეთ საჭიროების მიხედვით */
+  
 }
 
 .product-card {
-    border: 1px solid #ddd;
+  /*  border: 1px solid #ddd;*/
     padding: 20px;
-    margin: 10px; /* ჰორიზონტალური სივრცე */
+    margin: 10px; 
     text-align: center;
-    flex: 0 0 auto; /* არ გაწვდოს სიმაღლეზე */
-    width: 300px; /* კონკრეტული სიგანე */
+    flex: 0 0 auto; 
+    width: 300px;
     position: relative;
 }
 
 .product-image {
     width: 100%;
-    height: 300px; /* ან სხვა კონკრეტული სიმაღლე */
-    object-fit: cover; /* ფოტოების თანაბარი გამოჩენა */
+    height: 300px; 
+    object-fit: cover; 
     display: block;
-    margin: 0 auto; /* ცენტრში განლაგება */
+    margin: 0 auto; 
 }
 
 .product-info {
@@ -55,17 +55,17 @@
     color: #fff;
 }
 
-/* სლაიდერის ღილაკები */
+
 .carousel-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
+ /*   color: #fff;*/
     border: none;
     padding: 10px;
     cursor: pointer;
-    z-index: 10; /* ღილაკების ზემოდან გამოსვლისათვის */
+    z-index: 10; 
 }
 
     .carousel-button.left {
