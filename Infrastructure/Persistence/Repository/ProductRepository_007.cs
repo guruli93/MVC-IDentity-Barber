@@ -18,21 +18,14 @@ namespace Infrastructure.Persistence.Repository
         public async Task<IEnumerable<Product>> GetAll_Productasync()
         {
           
-        var products = await sQL_DbContext.Products.AsNoTracking()
+        var products = await sQL_DbContext.Products.
+        AsNoTracking()
        .Include(p => p.Image) 
        .ToListAsync();
             
             return products;
         }
-        public async Task<IEnumerable<Product>> GetAll_Productasync(int page, int pageSize)
-        {
-            var products = await sQL_DbContext.Products.AsNoTracking()
-                .Include(p => p.Image)
-                .ToListAsync();
-
-            return products;
-        }
-
+        
         public async Task<IEnumerable<Product>> GetAll_WitchPagination(int page, int pageSize)
 {
         var products = await sQL_DbContext.Products

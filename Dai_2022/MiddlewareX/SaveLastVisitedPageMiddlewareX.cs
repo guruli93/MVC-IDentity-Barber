@@ -20,19 +20,24 @@ public class SaveLastVisitedPageMiddlewareX
         var method = context.Request.Method.ToUpperInvariant();
        
         var fromButton = queryParameters["fromButton"].ToString();
+        var excludedPaths2 = new[]
+ {
+            "/Product/DisplayImage",
+            "/Product/Delete",
+            "/Booking/GetBookings",
+            "/Product/Edit",
+            "/Product/Search",
+            "/Services/Product",
+           
+            
+        };
 
-        if (requestPath.StartsWith("/Product/DisplayImage") ||
-            requestPath.StartsWith("/Product/Delete")
-            || requestPath.StartsWith("/Booking/GetBookings") ||
-            requestPath.StartsWith("/Product/Edit") ||
-            requestPath.StartsWith("/Product/Search")||
-             requestPath.StartsWith("/Services/Product"))
-
+        if (excludedPaths2.Any(path => requestPath.StartsWith(path, StringComparison.OrdinalIgnoreCase)))
         {
-
             await _next(context);
             return;
         }
+   
         else
         {
 
@@ -144,14 +149,11 @@ public class SaveLastVisitedPageMiddlewareX
     //-------------------------------------------------------------------//
     private async Task RedirectToLastVisitedPage(HttpContext context, string redirectPath)
     {
-        if (!context.User.Identity.IsAuthenticated &&
-            !context.Request.Path.Equals("/Login/Login",
-            StringComparison.OrdinalIgnoreCase))
+        if (redirectPath.Contains("Home/Index"))
         {
-
-            context.Response.Redirect("/Login/Login");
-
-
+            context.Session.Remove("LastVisitedPage");
+            context.Response.Cookies.Delete("Last");
+            context.Response.Redirect(redirectPath);
         }
         else
         {
@@ -159,12 +161,7 @@ public class SaveLastVisitedPageMiddlewareX
             context.Response.Redirect(redirectPath);
         }
 
-        if (redirectPath.Contains("Home/Index"))
-        {
-            context.Session.Remove("LastVisitedPage");
-            context.Response.Cookies.Delete("Last");
-            context.Response.Redirect(redirectPath);
-        }
+      
         await Task.CompletedTask; 
     }
     //--------------------------------------------------------------------------------------------//
