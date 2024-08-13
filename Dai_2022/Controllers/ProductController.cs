@@ -92,13 +92,14 @@ namespace Dai.Controllers
             }
 
             var product = await _productService.Get_Product_ByName(searchString);
+
             var productResponse = new ProductResponseModel2
             {
                 Id_Pr = product.Id_Pr,
                 ProductCategory = product.ProductCategory,
                 ProductName = product.ProductName,
                 ProdutCount = product.ProdutCount,
-                ImageData = product.ImageData,
+                ImageData = product.ImageData ?? Array.Empty<byte>(),
                 ContentType = product.ContentType,
             };
 
@@ -156,8 +157,8 @@ namespace Dai.Controllers
                 ProdutCount = p.ProdutCount.ToString(),
                 ProductCategory = p.ProductCategory,
                 ContentType = p.ContentType,
-                ImageData = p.ImageData
-            }).ToList();
+                ImageData = p.ImageData ?? Array.Empty<byte>(),
+            });
 
          
             return View(productResponseList);

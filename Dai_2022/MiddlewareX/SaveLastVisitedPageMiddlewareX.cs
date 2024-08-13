@@ -20,8 +20,9 @@ public class SaveLastVisitedPageMiddlewareX
         var method = context.Request.Method.ToUpperInvariant();
        
         var fromButton = queryParameters["fromButton"].ToString();
+        //------------------------------------------------------------//
         var excludedPaths2 = new[]
- {
+        {
             "/Product/DisplayImage",
             "/Product/Delete",
             "/Booking/GetBookings",
@@ -149,11 +150,14 @@ public class SaveLastVisitedPageMiddlewareX
     //-------------------------------------------------------------------//
     private async Task RedirectToLastVisitedPage(HttpContext context, string redirectPath)
     {
-        if (redirectPath.Contains("Home/Index"))
+        if (!context.User.Identity.IsAuthenticated &&
+            !context.Request.Path.Equals("/Login/Login",
+            StringComparison.OrdinalIgnoreCase))
         {
-            context.Session.Remove("LastVisitedPage");
-            context.Response.Cookies.Delete("Last");
-            context.Response.Redirect(redirectPath);
+
+            context.Response.Redirect("/Login/Login");
+
+
         }
         else
         {
@@ -161,8 +165,13 @@ public class SaveLastVisitedPageMiddlewareX
             context.Response.Redirect(redirectPath);
         }
 
-      
-        await Task.CompletedTask; 
+        if (redirectPath.Contains("Home/Index"))
+        {
+            context.Session.Remove("LastVisitedPage");
+            context.Response.Cookies.Delete("Last");
+            context.Response.Redirect(redirectPath);
+        }
+        await Task.CompletedTask; // Ensure asynchronous continuation
     }
     //--------------------------------------------------------------------------------------------//
 }

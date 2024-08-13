@@ -1,13 +1,15 @@
 ﻿using Application;
 using Domain.Product;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Persistence.Repository
 {
     public class ProductRepository_007 : UFrepository<Product>, IProductRepository
     {
         private readonly DbContext.DbContext sQL_DbContext;
-       
+
+       Expression<Func<Product, Object>> sQL_Expression=param=>param.Image;
 
         public ProductRepository_007(DbContext.DbContext dbContext) : base(dbContext)
         {
@@ -53,7 +55,8 @@ namespace Infrastructure.Persistence.Repository
 
         public async Task<Product> Get_Product_ById(int id)
         {
-            var product = await sQL_DbContext.Products.AsNoTracking().FirstOrDefaultAsync(x=>x.Id==id);
+            var product = await sQL_DbContext.Products.Include(p => p.Image)
+                .FirstOrDefaultAsync(x=>x.Id==id);
             return product;
         }
 

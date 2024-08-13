@@ -102,7 +102,7 @@
                         <div class="row align-items-center justify-content-center text-center">
                             <div class="col-md-7">
                                 <h1 class="mb-3">Register and book a visit</h1>
-                                <p><a href="@Url.Action("Register", "AccountRegister")" class="btn btn-primary">Register</a></p>
+                                <p><a href="@Url.Action("Register", "AccountRegister")" class="btn btn-danger">Register</a></p>
 
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                     <p class="product-name">ProductName: @product.ProductName</p>
                                     <p class="product-category">ProductCategory: @product.ProductCategory</p>
                                     <p class="product-count">ProductCount: @product.ProdutCount</p>
-                                    <a href="@Url.Action("Buy", "Product", new { id = product.Id_Pr })" class="btn btn-primary">ყიდვა</a>
+                                    <a href="@Url.Action("Buy", "Product", new { id = product.Id_Pr })" class="btn btn-danger">ყიდვა</a>
                                 </div>
                             </div>
                         }

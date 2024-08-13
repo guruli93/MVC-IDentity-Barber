@@ -9,7 +9,7 @@ namespace Application.Models_DB
         public string ProdutCount { get; set; }
         public string ProductCategory { get; set; }
         public string ContentType { get; set; }
-        public byte[] ImageData { get; set; }
+        public byte[] ImageData { get; set; }  = Array.Empty<byte>();
 
 
     }

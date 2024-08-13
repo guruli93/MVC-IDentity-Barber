@@ -139,12 +139,10 @@ namespace Infrastructure
 
             if (productUpdate != null)
             {
-                // Update product properties
                 productUpdate.ProductName = model.ProductName;
                 productUpdate.ProductCategory = model.ProductCategoryName;
                 productUpdate.ProdutCount = model.ProductCount;
 
-                // Update or create image
                 if (model.PhotoData != null)
                 {
                     using (var memoryStream = new MemoryStream())
@@ -155,29 +153,25 @@ namespace Infrastructure
 
                         if (productUpdate.Image != null)
                         {
-                            // Update existing image
                             productUpdate.Image.ImageData = imageData;
                             productUpdate.ContentType = contentType;
                         }
                         else
                         {
-                            // Create new image
                             var newImage = new Image
                             {
                                 ImageData = imageData,
-                                Id = productUpdate.Id // Ensure ProductId is set
+                                Id = productUpdate.Id 
                             };
-                          //  _repository.Images.Add(newImage); // Ensure image is added correctly to the context
+                          
                             productUpdate.Image = newImage;
                             productUpdate.ContentType = contentType;
                         }
                     }
                 }
 
-                // Save changes to database
                 await _repository.UpdateAsync(productUpdate);
 
-                // Prepare response model
                 var responseModel = new ProductResponseModel2
                 {
                     Id_Pr = productUpdate.Id,
