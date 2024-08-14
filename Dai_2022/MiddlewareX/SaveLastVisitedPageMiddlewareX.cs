@@ -36,6 +36,7 @@ public class SaveLastVisitedPageMiddlewareX
         if (excludedPaths2.Any(path => requestPath.StartsWith(path, StringComparison.OrdinalIgnoreCase)))
         {
             await _next(context);
+
             return;
         }
    

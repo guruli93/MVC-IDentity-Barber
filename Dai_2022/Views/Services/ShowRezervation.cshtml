@@ -18,14 +18,24 @@
 <body>
     <div class="container">
         <form id="booking-form" asp-action="BookAppointment" asp-controller="Booking" method="post">
-            <div class="form-group">
-                <div class="selected-date" id="selected-date"></div>
-                <input type="text" id="date" name="SelectedDate" placeholder="" required>
-            </div>
+ 
+               <div style="display:flex; align-items:center; justify-items:center;">
+                <div class="form-group">
+                    <div class="selected-date" id="selected-date"></div>
+                    <input type="text" id="date" name="SelectedDate" placeholder="" required>
+                </div>
+
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#paymentModal">Book Appointment</button>
+
+               </div> 
+
+           
 
             <div class="form-group">
          
                 <div id="time-slots">
+                  
+
                     <!-- Predefined Time Slots -->
                     @for (var hour = 10; hour <= 21; hour++)
                     {
@@ -45,8 +55,9 @@
 
                 </div>
                 <input type="hidden" id="selected-time" name="SelectedTime" required>
+
             </div>
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#paymentModal">Book Appointment</button>
+
         </form>
     </div>
 

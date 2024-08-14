@@ -18,4 +18,8 @@ public class Products2Config : IEntityTypeConfiguration<Product>
 
 
     }
+
+
+
+
 }

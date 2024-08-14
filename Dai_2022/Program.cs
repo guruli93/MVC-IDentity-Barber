@@ -49,7 +49,7 @@ internal class Program
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             options.Cookie.SameSite = SameSiteMode.Strict;
-            options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
             options.LoginPath = "/Login/Login";
             options.AccessDeniedPath = "/Product/AccessDenied";
             options.SlidingExpiration = true;

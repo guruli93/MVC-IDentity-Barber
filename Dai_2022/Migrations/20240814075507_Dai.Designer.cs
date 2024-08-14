@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dai.Migrations
 {
-    [DbContext(typeof(Infrastructure.Persistence.DbContext. DbContext))]
-    [Migration("20240813145342_Dai")]
+    [DbContext(typeof(Infrastructure.Persistence.DbContext.DbContext))]
+    [Migration("20240814075507_Dai")]
     partial class Dai
     {
         /// <inheritdoc />
