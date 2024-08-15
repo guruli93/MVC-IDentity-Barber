@@ -1,4 +1,5 @@
 
+using Dai.MiddlewareX;
 using Infrastructure;
 using Infrastructure.Configuration_DB;
 using Infrastructure.Persistence.DbContext;
@@ -116,7 +117,10 @@ internal class Program
         app.UseCookiePolicy();
         app.UseSession();
         //app.UseMiddleware<ExceptionMiddleware>();
-        app.UseMiddleware<SaveLastVisitedPageMiddlewareX>(); 
+        //app.UseMiddleware<SaveLastVisitedPageMiddlewareX>();
+        //app.UseMiddleware<PageSessionTimeoutMiddleware>();
+    
+               app.UseMiddleware<QueueMiddleware>();
 
         app.Use(async (context, next) =>
         {

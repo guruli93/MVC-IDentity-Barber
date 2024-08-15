@@ -1,7 +1,6 @@
 ﻿using Application;
 using Domain.Product;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Infrastructure.Persistence.Repository
 {
@@ -9,7 +8,7 @@ namespace Infrastructure.Persistence.Repository
     {
         private readonly DbContext.DbContext sQL_DbContext;
 
-       Expression<Func<Product, Object>> sQL_Expression=param=>param.Image;
+     
 
         public ProductRepository_007(DbContext.DbContext dbContext) : base(dbContext)
         {

@@ -80,28 +80,6 @@ namespace Infrastructure
             return productResponseModels;
         }
 
-        //public async Task<IEnumerable<ProductResponseModel2>> GettingDatabyPages(int page, int pageSize)
-        //{
-        //    // გამოთვალეთ რამდენი ჩანაწერი უნდა გამოტოვოთ
-        //    int skip = (page - 1) * pageSize;
-
-        //    var allProducts = await _repository.GetAll_WitchPagination(page, pageSize);
-
-        //    var productResponseModels = allProducts
-        //        .Skip(skip)
-        //        .Take(pageSize)
-        //        .Select(item => new ProductResponseModel2
-        //        {
-        //            Id_Pr = item.Id,
-        //            ProductCategory = item.ProductCategory,
-        //            ProductName = item.ProductName,
-        //            ProdutCount = item.ProdutCount,
-        //            ImageData = item.Image?.ImageData,
-        //            ContentType = item.ContentType,
-        //        }).ToList();
-
-        //    return productResponseModels;
-        //}
 
 
         public async Task<ProductResponseModel2> Get_Product_ById(int id)

@@ -25,29 +25,13 @@ public class HomeController : Controller
             ProductCategory = p.ProductCategory,
             ContentType = p.ContentType,
             ImageData = p.ImageData
-        }).ToList();
+        });
 
         return View(productResponseList);
 
-        return View();
+       
     }
-    /*
-    public async Task<IActionResult> Privacy(int page = 1)
-    {
-        ViewBag.background_image = true;
-        ViewBag.IsLoginPage = true;
-        int pageSize = 7;
-        var products = await _productService.GettingDatabyPages(page, pageSize);
-
-        var totalProducts = await _productService.AmountOfallData();
-
-        ViewBag.CurrentPage = page;
-        ViewBag.TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
-
-        return View(products);
-    }
-    */
-
+  
   
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
