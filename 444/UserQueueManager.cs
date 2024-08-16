@@ -36,12 +36,12 @@ namespace Application
 
                 if (ActiveUsers.Count < 1 && !VerifyDuplicate&& !userId.Contains("///8887776//"))
                 {
-                    ActiveUsers.Add(new UserQueue { UserId = userId, StartTime = DateTime.Now }); // აქტირუი მომხარებლის დაატება List კოლეკციაში
+                    ActiveUsers.Add(new UserQueue { UserId = userId, StartTime = DateTime.Now });
                     _logger.LogInformation("Added new user: {UserId}. Active users count: {Count}", userId, ActiveUsers.Count);
                     return true;
                 }
-                else if (!userId.Contains("///8887776//")) // რიგში დამატება მომხარებლის  Queue კოლექჩიში
-            {
+                else if (!userId.Contains("///8887776//"))
+                {
                     WaitingQueue.Enqueue(new UserQueue { UserId = userId, StartTime = DateTime.Now });
                     _logger.LogInformation("User added to queue: {UserId}. Queue count: {Count}", userId, WaitingQueue.Count);
                     return false;
@@ -54,13 +54,13 @@ namespace Application
         {
             var thresholdTime = DateTime.Now - TimeSpan.FromMinutes(1);
 
-          
+            // იპოვე ძველი მომხმარებლები
             var oldUsers = ActiveUsers.Where(u => u.StartTime < thresholdTime).ToList();
 
-          
+            // დაამატე რაოდენობა ძველი მომხმარებლების რაოდენობის მიხედვით
             int removedCount = oldUsers.Count;
 
-     
+            // ლოგირება ძველი მომხმარებლების `StartTime` დროებით
             if (removedCount > 0)
             {
                 _logger.LogInformation("Removing {Count} old users from active list at {Time}.", removedCount, DateTime.Now);
@@ -70,13 +70,16 @@ namespace Application
                     _logger.LogInformation("User: {UserId}, StartTime: {StartTime}", user.UserId, user.StartTime);
                 }
 
+                // წაშალე ძველი მომხმარებლები სიიდან
                 foreach (var user in oldUsers)
                 {
                     ActiveUsers.Remove(user);
 
+                    // დამატებითი ლოგირება: რომელი მომხმარებელი წაიშალა
                     _logger.LogInformation("Removed old user: {UserId}, StartTime: {StartTime}", user.UserId, user.StartTime);
                 }
 
+                // ლოგირება - აქტიური მომხმარებლების მიმდინარე რაოდენობა
                 _logger.LogInformation("Current active users count: {CurrentCount}", ActiveUsers.Count);
 
             }

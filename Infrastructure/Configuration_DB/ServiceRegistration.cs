@@ -24,8 +24,9 @@ namespace Infrastructure.Configuration_DB
 
             collection.AddScoped<IBookingService, BookingService>();
             collection.AddScoped<IBookingRepository, BookingRepository>();
-       
-         
+            collection.AddSingleton<UserQueueManager>();
+
+
             return collection;
         }
     }
