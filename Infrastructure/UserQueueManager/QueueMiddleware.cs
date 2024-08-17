@@ -1,42 +1,44 @@
-﻿using Application;
+﻿
+using Microsoft.AspNetCore.Http;
 
-namespace Dai.MiddlewareX
+namespace Infrastructure.UserQueueManager
 {
     public class QueueMiddleware
     {
         private readonly RequestDelegate _next;
-        private  readonly UserQueueManager _queueManager;
+        private readonly UserQueueManagerX _queueManager;
 
-        public QueueMiddleware(RequestDelegate next, UserQueueManager userQueueManager)
+        public QueueMiddleware(RequestDelegate next, UserQueueManagerX userQueueManager)
         {
             _next = next;
-            _queueManager = userQueueManager;    
+            _queueManager = userQueueManager;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
             var userId = context.User.Identity.Name;
-           
+
 
 
             if (!string.IsNullOrEmpty(userId))
             {
-                if (!_queueManager.TryEnterPage(userId, context) )
+                if (!_queueManager.TryEnterPage(userId, context))
                 {
 
                     context.Response.StatusCode = 429;
                     await context.Response.WriteAsync("Please wait, you are in queue.");
+                   
                     return;
                 }
             }
 
             try
             {
-                await _next(context); 
+                await _next(context);
             }
             finally
             {
-                _queueManager.ReleaseUser(); 
+                _queueManager.ReleaseUser(context);
             }
         }
     }

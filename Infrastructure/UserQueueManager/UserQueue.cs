@@ -1,10 +1,10 @@
 ﻿
 
-namespace Application
+namespace Infrastructure.UserQueueManager
 {
     public class UserQueue
     {
-        public string UserId { get; set; }
+        public string UserURL { get; set; }
         public DateTime StartTime { get; set; }
     }
 }

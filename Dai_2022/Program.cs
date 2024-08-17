@@ -1,8 +1,8 @@
-
-using Dai.MiddlewareX;
 using Infrastructure;
 using Infrastructure.Configuration_DB;
+using Infrastructure.New;
 using Infrastructure.Persistence.DbContext;
+using Infrastructure.UserQueueManager;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 
@@ -117,10 +117,10 @@ internal class Program
         app.UseCookiePolicy();
         app.UseSession();
         //app.UseMiddleware<ExceptionMiddleware>();
-        //app.UseMiddleware<SaveLastVisitedPageMiddlewareX>();
+        //app.UseMiddleware<SaveLastVisitedX>();
         //app.UseMiddleware<PageSessionTimeoutMiddleware>();
     
-               app.UseMiddleware<QueueMiddleware>();
+         app.UseMiddleware<FileName>();
 
         app.Use(async (context, next) =>
         {

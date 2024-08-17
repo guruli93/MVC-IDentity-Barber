@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DbContext = Infrastructure.Persistence.DbContext.DbContext;
+using Infrastructure.UserQueueManager;
 
 
 namespace Infrastructure.Configuration_DB
@@ -24,7 +25,7 @@ namespace Infrastructure.Configuration_DB
 
             collection.AddScoped<IBookingService, BookingService>();
             collection.AddScoped<IBookingRepository, BookingRepository>();
-            collection.AddSingleton<UserQueueManager>();
+            collection.AddSingleton<UserQueueManagerX>();
 
 
             return collection;
