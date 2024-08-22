@@ -6,12 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="wwwroot\Templete_XX\**" />
-    <Content Remove="wwwroot\Templete_XX\**" />
-    <EmbeddedResource Remove="wwwroot\Templete_XX\**" />
-    <None Remove="wwwroot\Templete_XX\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Views\Shared\_Layout_2.cshtml" />
@@ -37,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.10.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

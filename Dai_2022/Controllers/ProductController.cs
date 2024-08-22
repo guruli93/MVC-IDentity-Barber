@@ -4,7 +4,8 @@ using Application.Models_DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
+using Application.CloudService;
+using Google.Apis.Storage.v1;
 
 namespace Dai.Controllers
 {
@@ -13,12 +14,29 @@ namespace Dai.Controllers
     {
         private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;
+        private readonly IGoogleCloudStorageService _googleCloudStorageService;
 
-        public ProductController(IProductService productService, ILogger<ProductController> logger)
+        public ProductController(IProductService productService, ILogger<ProductController> logger,
+            IGoogleCloudStorageService googleCloudStorageService)
         {
             _productService = productService;
             _logger = logger;
+            _googleCloudStorageService=googleCloudStorageService;
 
+        }
+
+
+        public async Task<IActionResult> UploadPhoto()
+        {
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                using var stream = file.OpenReadStream();
+               var xxx= await _googleCloudStorageService.UploadFileAsync(file.FileName, stream);
+
+                return Ok(new { Message = "File uploaded successfully!" });
+            }
+            return BadRequest("No file uploaded.");
         }
 
         [HttpPost]
