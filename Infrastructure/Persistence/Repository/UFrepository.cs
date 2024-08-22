@@ -21,7 +21,7 @@ namespace Infrastructure.Persistence.Repository
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            // ქეშში შენახვა
+            
             var cacheKey = $"{typeof(T).Name}_{entity.GetHashCode()}";
              _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
 
@@ -33,7 +33,7 @@ namespace Infrastructure.Persistence.Repository
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
 
-            // ქეშიდან ამოშლა
+           
             var cacheKey = $"{typeof(T).Name}_{entity.GetHashCode()}";
              _memoryCache.Remove(cacheKey);
         }

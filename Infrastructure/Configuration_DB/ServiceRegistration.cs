@@ -30,22 +30,22 @@ namespace Infrastructure.Configuration_DB
             collection.AddScoped<IBookingRepository, BookingRepository>();
             collection.AddSingleton<UserQueueManagerX>();
 
-            // Register Google Cloud Storage client
-            var bucketName = configuration["GoogleCloud:BucketName"];
-            var credentialsFilePath = configuration["GoogleCloud:CredentialsFilePath"];
+            //// Register Google Cloud Storage client
+            //var bucketName = configuration["GoogleCloud:BucketName"];
+            //var credentialsFilePath = configuration["GoogleCloud:CredentialsFilePath"];
 
-            collection.AddSingleton(provider =>
-            {
-                var credential = GoogleCredential.FromFile(credentialsFilePath)
-                    .CreateScoped("https://www.googleapis.com/auth/devstorage.full_control");
-                return StorageClient.Create(credential);
-            });
+            //collection.AddSingleton(provider =>
+            //{
+            //    var credential = GoogleCredential.FromFile(credentialsFilePath)
+            //        .CreateScoped("https://www.googleapis.com/auth/devstorage.full_control");
+            //    return StorageClient.Create(credential);
+            //});
 
-            collection.AddScoped<IGoogleCloudStorageService>(provider =>
-            {
-                var storageClient = provider.GetRequiredService<StorageClient>();
-                return new GoogleCloudStorageService(storageClient, bucketName);
-            });
+            //collection.AddScoped<IGoogleCloudStorageService>(provider =>
+            //{
+            //    var storageClient = provider.GetRequiredService<StorageClient>();
+            //    return new GoogleCloudStorageService(storageClient, bucketName);
+            //});
 
             return collection;
         }
