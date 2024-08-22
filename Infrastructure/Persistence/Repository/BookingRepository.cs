@@ -1,15 +1,14 @@
 ﻿using Application;
 using Domain.Booking;
-using Infrastructure.Persistence.DbContext;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory; // ქეშისთვის საჭირო namespace
+using Microsoft.Extensions.Caching.Memory; 
 
 namespace Infrastructure.Persistence.Repository
 {
     public class BookingRepository : UFrepository<Booking>, IBookingRepository
     {
         private readonly DbContext.DbContext _dbContext;
-        private readonly IMemoryCache _memoryCache; // ქეშის ინტერფეისი
+        private readonly IMemoryCache _memoryCache; 
 
         public BookingRepository(DbContext.DbContext dbContext, IMemoryCache memoryCache)
             : base(dbContext, memoryCache)
