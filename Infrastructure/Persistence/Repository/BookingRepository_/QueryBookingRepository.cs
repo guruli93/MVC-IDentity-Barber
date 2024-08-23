@@ -1,42 +1,46 @@
 ﻿using Application;
-using Domain.Booking;
+using Domain.Bookingentity;
+using Infrastructure.Persistence.DbContext_;
+using Infrastructure.Persistence.Repository.BookingRepository_;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory; 
+using Domain.Productentity;
 
 namespace Infrastructure.Persistence.Repository
 {
-    public class BookingRepository : UFrepository<Booking>, IBookingRepository
+    public class QueryBookingRepository : CommandBookingRepository, IBookingRepository
     {
-        private readonly DbContext.DbContext _dbContext;
+        private readonly AppDbContext _dbContext;
         private readonly IMemoryCache _memoryCache; 
 
-        public BookingRepository(DbContext.DbContext dbContext, IMemoryCache memoryCache)
-            : base(dbContext, memoryCache)
+        public QueryBookingRepository(AppDbContext  dbContext, IMemoryCache memoryCache): base(dbContext, memoryCache)
         {
             _dbContext = dbContext;
             _memoryCache = memoryCache;
         }
 
+
         public async Task<IEnumerable<Booking>> GetAllBookingsDate()
         {
-            var cacheKey = "all_bookings_date";
+           
+            var cacheKey = $"Booking_{new Booking().Id}";
 
             if (!_memoryCache.TryGetValue(cacheKey, out IEnumerable<Booking> bookings))
             {
                 bookings = await _dbContext.Booking.ToListAsync();
 
-                // ქეშში შენახვა 5 წუთით
-                _memoryCache.Set(cacheKey, bookings, TimeSpan.FromMinutes(5));
+
+                _memoryCache.Set(cacheKey, bookings, TimeSpan.FromHours(12));
             }
 
             return bookings;
         }
 
-        public async Task<List<string>> GetBookingsByDate(DateTime date)
+        public async Task<IEnumerable<string>> GetBookingsByDate(DateTime date)
         {
             var cacheKey = $"bookings_date_{date:yyyyMMdd}";
-
-            if (!_memoryCache.TryGetValue(cacheKey, out List<string> reservedTimes))
+          
+            if (!_memoryCache.TryGetValue(cacheKey, out IEnumerable<string> reservedTimes))
             {
                 reservedTimes = await _dbContext.Booking
                     .Where(b => b.SelectedDate.Date == date.Date)
@@ -44,12 +48,14 @@ namespace Infrastructure.Persistence.Repository
                     .Distinct()
                     .ToListAsync();
 
-                // ქეშში შენახვა 5 წუთით
-                _memoryCache.Set(cacheKey, reservedTimes, TimeSpan.FromMinutes(5));
+
+                _memoryCache.Set(cacheKey, reservedTimes, TimeSpan.FromHours(12));
             }
 
             return reservedTimes;
         }
+
+
     }
 }
 

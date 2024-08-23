@@ -1,6 +1,4 @@
-﻿
-
-using Domain.Booking;
+﻿using Domain.Bookingentity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

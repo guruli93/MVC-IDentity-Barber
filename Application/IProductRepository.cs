@@ -1,6 +1,6 @@
 ﻿
 
-using Domain.Product;
+using Domain.Productentity;
 
 namespace Application
 {

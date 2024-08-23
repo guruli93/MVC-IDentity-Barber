@@ -1,16 +1,16 @@
 ﻿using System.Reflection;
-using Domain.Booking;
-using Domain.Image;
-using Domain.Product;
+using Domain.Bookingentity;
+using Domain.Imageentity;
+using Domain.Productentity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence.DbContext;
+namespace Infrastructure.Persistence.DbContext_;
 
-public class DbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
-    public DbContext(DbContextOptions<DbContext> options) : base(options) { }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

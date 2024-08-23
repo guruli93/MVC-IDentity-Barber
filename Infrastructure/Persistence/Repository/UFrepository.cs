@@ -1,19 +1,18 @@
-﻿
-using Application;
+﻿using Application;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory; 
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Infrastructure.Persistence.Repository
 {
     public class UFrepository<T> : IAsyncRepository<T> where T : class
     {
-        private readonly DbContext.DbContext _dbContext;
-        private readonly IMemoryCache  _memoryCache; 
+        private readonly DbContext _dbContext;
+        private readonly IMemoryCache _memoryCache;
 
-        public UFrepository(DbContext.DbContext dbContext, IMemoryCache memoryCache)
+        public UFrepository(DbContext dbContext, IMemoryCache memoryCache)
         {
             _dbContext = dbContext;
-             _memoryCache = memoryCache;
+            _memoryCache = memoryCache;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -21,9 +20,8 @@ namespace Infrastructure.Persistence.Repository
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            
-            var cacheKey = $"{typeof(T).Name}_{entity.GetHashCode()}";
-             _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
+            var cacheKey = GetCacheKey(entity);
+            _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
 
             return entity;
         }
@@ -33,22 +31,21 @@ namespace Infrastructure.Persistence.Repository
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
 
-           
-            var cacheKey = $"{typeof(T).Name}_{entity.GetHashCode()}";
-             _memoryCache.Remove(cacheKey);
+            var cacheKey = GetCacheKey(entity);
+            _memoryCache.Remove(cacheKey);
         }
 
         public async Task<T> GetByIdAsync(int id)
         {
             var cacheKey = $"{typeof(T).Name}_{id}";
 
-            if (! _memoryCache.TryGetValue(cacheKey, out T entity))
+            if (!_memoryCache.TryGetValue(cacheKey, out T entity))
             {
                 entity = await _dbContext.Set<T>().FindAsync(id);
 
                 if (entity != null)
                 {
-                     _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
+                    _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
                 }
             }
 
@@ -62,7 +59,7 @@ namespace Infrastructure.Persistence.Repository
             if (!_memoryCache.TryGetValue(cacheKey, out IEnumerable<T> entities))
             {
                 entities = await _dbContext.Set<T>().ToListAsync();
-                 _memoryCache.Set(cacheKey, entities, TimeSpan.FromHours(12));
+                _memoryCache.Set(cacheKey, entities, TimeSpan.FromHours(12));
             }
 
             return entities;
@@ -73,14 +70,24 @@ namespace Infrastructure.Persistence.Repository
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
-          
-            var cacheKey = $"{typeof(T).Name}_{entity.GetHashCode()}";
-             _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
+            var cacheKey = GetCacheKey(entity);
+            _memoryCache.Set(cacheKey, entity, TimeSpan.FromHours(12));
 
             return entity;
         }
+
+        private string GetCacheKey(T entity)
+        {
+            var idProperty = typeof(T).GetProperty("Id");
+            if (idProperty == null)
+            throw new InvalidOperationException("Type must have a property named 'Id'.");
+
+            var idValue = idProperty.GetValue(entity);
+            return $"{typeof(T).Name}_{idValue}";
+        }
     }
 }
+
 
 
 /*

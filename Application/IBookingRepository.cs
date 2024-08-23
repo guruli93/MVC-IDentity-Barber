@@ -1,11 +1,13 @@
-﻿using Domain.Booking;
+﻿
 
+
+using Domain.Bookingentity;
 
 namespace Application
 {
-    public interface IBookingRepository: IAsyncRepository <Booking>
+    public interface IBookingRepository: ICommandBookingRepository
     {
-        Task<List<string>> GetBookingsByDate(DateTime date);
+        Task<IEnumerable<string>> GetBookingsByDate(DateTime date);
         Task<IEnumerable<Booking>> GetAllBookingsDate();
 
     }

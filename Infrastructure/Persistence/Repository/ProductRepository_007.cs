@@ -1,5 +1,6 @@
 ﻿using Application;
-using Domain.Product;
+using Domain.Productentity;
+using Infrastructure.Persistence.DbContext_;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory; 
 
@@ -7,10 +8,10 @@ namespace Infrastructure.Persistence.Repository
 {
     public class ProductRepository_007 : UFrepository<Product>, IProductRepository
     {
-        private readonly DbContext.DbContext _dbContext;
+        private readonly AppDbContext _dbContext;
         private readonly IMemoryCache _memoryCache; 
 
-        public ProductRepository_007(DbContext.DbContext dbContext, IMemoryCache memoryCache)
+        public ProductRepository_007(AppDbContext dbContext, IMemoryCache memoryCache)
             : base(dbContext, memoryCache)
         {
             _dbContext = dbContext;
@@ -19,7 +20,10 @@ namespace Infrastructure.Persistence.Repository
 
         public async Task<IEnumerable<Product>> GetAll_Productasync()
         {
-            var cacheKey = "all_products";
+            var product = new Product();
+
+            var cacheKey = $"{typeof(Product).Name}_{product.Id}";
+           
 
             if (!_memoryCache.TryGetValue(cacheKey, out IEnumerable<Product> products))
             {
@@ -88,7 +92,7 @@ namespace Infrastructure.Persistence.Repository
 
         public async Task<Product> Get_Product_ById(int id)
         {
-            var cacheKey = $"product_{id}";
+            var cacheKey = $"{typeof(Product).Name}_{id}";
 
             if (!_memoryCache.TryGetValue(cacheKey, out Product product))
             {

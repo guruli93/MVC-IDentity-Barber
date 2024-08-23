@@ -5,11 +5,11 @@ using Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using DbContext = Infrastructure.Persistence.DbContext.DbContext;
 using Infrastructure.UserQueueManager;
 using Application.CloudService;
 using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
+using Infrastructure.Persistence.DbContext_;
 
 namespace Infrastructure.Configuration_DB
 {
@@ -18,7 +18,7 @@ namespace Infrastructure.Configuration_DB
         public static IServiceCollection AddDB_Services(this IServiceCollection collection, IConfiguration configuration)
         {
             // Register DbContext
-            collection.AddDbContext<DbContext>(options =>
+            collection.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("IdentityUserDB"), b => b.MigrationsAssembly("Dai"));
             });
@@ -27,7 +27,7 @@ namespace Infrastructure.Configuration_DB
             collection.AddScoped<IProductService, ProductService>();
             collection.AddScoped<IProductRepository, ProductRepository_007>();
             collection.AddScoped<IBookingService, BookingService>();
-            collection.AddScoped<IBookingRepository, BookingRepository>();
+            collection.AddScoped<IBookingRepository, QueryBookingRepository>();
             collection.AddSingleton<UserQueueManagerX>();
 
             //// Register Google Cloud Storage client

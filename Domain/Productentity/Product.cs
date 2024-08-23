@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using Domain.Imageentity;
 
-namespace Domain.Product;
+namespace Domain.Productentity;
 
 public class Product
 {
@@ -10,7 +11,7 @@ public class Product
     public string ProdutCount { get; set; }
     public string ProductCategory { get; set; }
     public string ContentType { get; set; } = string.Empty;
-    public Image.Image Image { get; set; }
+    public Image Image { get; set; }
 }
 
 

@@ -1,7 +1,8 @@
 ﻿using Application;
 using Application.Models_DB;
-using Domain.Image;
-using Domain.Product;
+using Domain.Imageentity;
+using Domain.Productentity;
+
 
 
 namespace Infrastructure

@@ -1,6 +1,6 @@
 using Infrastructure;
 using Infrastructure.Configuration_DB;
-using Infrastructure.Persistence.DbContext;
+using Infrastructure.Persistence.DbContext_;
 using Infrastructure.SaveLastVisitedPageMiddlewareX;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
@@ -36,7 +36,7 @@ internal class Program
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
             options.User.RequireUniqueEmail = true;
         })
-        .AddEntityFrameworkStores<DbContext>()
+        .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
         //---------------------------------------------------//
 
@@ -117,13 +117,13 @@ internal class Program
         app.UseMiddleware<SaveLastVisitedX>();
         //app.UseMiddleware<QueueMiddleware>();
 
-        app.Use(async (context, next) =>
-        {
-            context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-            context.Response.Headers.Add("X-Frame-Options", "DENY");
-            context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
-            await next();
-        });
+        //app.Use(async (context, next) =>
+        //{
+        //    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+        //    context.Response.Headers.Add("X-Frame-Options", "DENY");
+        //    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+        //    await next();
+        //});
 
         app.MapControllerRoute(
             name: "default",

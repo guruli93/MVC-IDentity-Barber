@@ -1,5 +1,5 @@
-﻿using Domain.Image;
-using Domain.Product;
+﻿using Domain.Imageentity;
+using Domain.Productentity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

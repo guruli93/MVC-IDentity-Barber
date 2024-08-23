@@ -1,6 +1,6 @@
 ﻿using Application;
 using Application.BookingService;
-using Domain.Booking;
+using Domain.Bookingentity;
 
 namespace Infrastructure
 {
@@ -12,9 +12,9 @@ namespace Infrastructure
             
         }
 
-        public async Task<ResponseBookingViewModel> Add_Reservation(ReqvestBookingViewModel model)
+        public async Task<bool> Add_Reservation(ReqvestBookingViewModel model)
         {
-            var Booking = new Booking
+            var Booking_ = new Booking
             {
                 Id = model.Id,
                 SelectedDate = model.SelectedDate,
@@ -22,15 +22,10 @@ namespace Infrastructure
                 ReservedTimes = model.ReservedTimes
 
             };
-            var AddDateReservation = await _bookingRepository.AddAsync(Booking);
+            var AddDateReservation = await _bookingRepository.AddAsync(Booking_);
 
 
-            return new ResponseBookingViewModel
-            {Id = model.Id,
-                SelectedDate = AddDateReservation.SelectedDate,
-                SelectedTime = AddDateReservation.SelectedTime,
-                ReservedTimes = model.ReservedTimes
-            };
+            return AddDateReservation;
         }
 
         public async Task<IEnumerable<ResponseBookingViewModel>> GetAllBookingsDate()
@@ -48,7 +43,7 @@ namespace Infrastructure
             return ResponseBookingViewModel;
         }
 
-        public async Task <List<string>> GetBookingsByDate(DateTime date)
+        public async Task <IEnumerable<string>> GetBookingsByDate(DateTime date)
         {
 
 
